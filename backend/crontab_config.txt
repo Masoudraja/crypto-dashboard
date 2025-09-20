@@ -1,0 +1,30 @@
+# Crypto Dashboard Automated Tasks
+# To install: crontab < crontab_config.txt
+# To view: crontab -l
+# To edit: crontab -e
+
+# Set environment variables
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+CRYPTO_DASHBOARD_PATH=/Volumes/Masoud Case Sensetive/crypto-dashboard
+
+# Price data collection - Every 5 minutes
+*/5 * * * * cd $CRYPTO_DASHBOARD_PATH && source venv/bin/activate && python main.py >> logs/price_collection.log 2>&1
+
+# News aggregation - Every 30 minutes
+*/30 * * * * cd $CRYPTO_DASHBOARD_PATH && source venv/bin/activate && python fetch_news.py >> logs/news_fetch.log 2>&1
+
+# Advanced analysis - Every hour at minute 0
+0 * * * * cd $CRYPTO_DASHBOARD_PATH && source venv/bin/activate && python advanced_analysis.py >> logs/analysis.log 2>&1
+
+# Health check - Every 4 hours
+0 */4 * * * cd $CRYPTO_DASHBOARD_PATH && source venv/bin/activate && python task_scheduler.py --task health >> logs/health_check.log 2>&1
+
+# Daily maintenance - Every day at 1 AM
+0 1 * * * cd $CRYPTO_DASHBOARD_PATH && source venv/bin/activate && python task_scheduler.py --task maintenance >> logs/maintenance.log 2>&1
+
+# Weekly full backfill - Every Sunday at 2 AM
+0 2 * * 0 cd $CRYPTO_DASHBOARD_PATH && source venv/bin/activate && python backfill_data.py >> logs/backfill.log 2>&1
+
+# Log rotation - Weekly cleanup of old logs
+0 3 * * 0 find $CRYPTO_DASHBOARD_PATH/logs -name "*.log" -mtime +7 -delete

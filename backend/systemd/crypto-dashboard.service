@@ -1,0 +1,29 @@
+[Unit]
+Description=Crypto Dashboard Task Scheduler
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=crypto-dashboard
+Group=crypto-dashboard
+WorkingDirectory=/path/to/crypto-dashboard
+Environment=PATH=/path/to/crypto-dashboard/venv/bin
+ExecStart=/path/to/crypto-dashboard/venv/bin/python task_scheduler.py --daemon
+Restart=always
+RestartSec=10
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=crypto-dashboard
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/path/to/crypto-dashboard
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+2025-09-15 16:30:44,202 - __main__ - INFO - 🎯 Running single task: health
+2025-09-15 16:30:44,202 - __main__ - INFO - 🏥 Performing health check...
+2025-09-15 16:30:44,337 - __main__ - INFO - ✅ Database connection healthy
+2025-09-15 16:30:44,337 - __main__ - INFO - ✅ Task health completed successfully
+2025-09-15 16:30:55,831 - __main__ - INFO - 🎯 Running single task: price
+2025-09-15 16:30:55,831 - __main__ - INFO - 🚀 Starting Price Data Collection...
+2025-09-15 16:32:38,875 - __main__ - INFO - ✅ Price Data Collection completed successfully
+2025-09-15 16:32:38,876 - __main__ - INFO - ✅ Task price completed successfully
